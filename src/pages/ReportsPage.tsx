@@ -1,4 +1,3 @@
-
 import { Sidebar } from "@/components/Sidebar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { assetData } from "@/data/assetData";
@@ -24,7 +23,7 @@ export function ReportsPage() {
   const totalAssets = assetData.length;
   const totalValue = assetData.reduce((acc, asset) => acc + asset.grandTotal, 0);
   
-  // Prepare data for charts
+  // Prepare data for charts - Add null checks
   const assetTypeData = assetData.reduce((acc, asset) => {
     if (!asset.assetType) return acc;
     
@@ -62,6 +61,14 @@ export function ReportsPage() {
   }, [] as { name: string; value: number }[]);
   
   const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884D8', '#82ca9d'];
+  
+  // Safe formatter function to handle different value types
+  const safeValueFormatter = (value: any): string => {
+    if (typeof value === 'number') {
+      return formatRupees(value);
+    }
+    return String(value);
+  };
   
   return (
     <div className="flex h-screen">
@@ -185,7 +192,7 @@ export function ReportsPage() {
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="name" angle={-45} textAnchor="end" height={80} />
                   <YAxis tickFormatter={(value) => `₹${(value / 1000).toFixed(0)}K`} />
-                  <Tooltip formatter={(value: any) => [formatRupees(value), 'Value']} />
+                  <Tooltip formatter={(value: any) => [safeValueFormatter(value), 'Value']} />
                   <Legend />
                   <Bar dataKey="value" name="Value" fill="#8884d8" />
                 </Rechart>

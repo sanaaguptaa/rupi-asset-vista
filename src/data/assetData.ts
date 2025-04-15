@@ -1,4 +1,3 @@
-
 export interface AssetData {
   assetClass: string;
   verifiedAmount: number;
@@ -6,18 +5,19 @@ export interface AssetData {
   assetWriteoffAmount: number;
   soldOutAmount: number;
   grandTotal: number;
-  // Add the missing properties that are being used in our components
-  assetName?: string;
-  assetId?: string;
-  assetType?: string;
-  department?: string;
-  purchaseDate?: string;
-  location?: string;
-  purchaseValue?: number;
-  status?: string;
+  // Making these properties required instead of optional since they're used throughout the app
+  assetName: string;
+  assetId: string;
+  assetType: string;
+  department: string;
+  purchaseDate: string;
+  location: string;
+  purchaseValue: number;
+  status: string;
 }
 
-// Modify the existing asset data to include the additional required fields
+// Keep the existing asset data, already properly formatted with all fields
+
 export const assetData: AssetData[] = [
   {
     assetClass: "Building",
@@ -32,7 +32,8 @@ export const assetData: AssetData[] = [
     outOfScopeAmount: 2254321,
     assetWriteoffAmount: 0,
     soldOutAmount: 0,
-    grandTotal: 2962113134
+    grandTotal: 2962113134,
+    purchaseValue: 2962113134
   },
   {
     assetClass: "Computer",
@@ -47,7 +48,8 @@ export const assetData: AssetData[] = [
     outOfScopeAmount: 0,
     assetWriteoffAmount: 0,
     soldOutAmount: 0,
-    grandTotal: 238815549
+    grandTotal: 238815549,
+    purchaseValue: 238815549
   },
   {
     assetClass: "IT & EF",
@@ -62,7 +64,8 @@ export const assetData: AssetData[] = [
     outOfScopeAmount: 843218853,
     assetWriteoffAmount: 0,
     soldOutAmount: 0,
-    grandTotal: 1904271688
+    grandTotal: 1904271688,
+    purchaseValue: 1904271688
   },
   {
     assetClass: "Intangible",
@@ -77,7 +80,8 @@ export const assetData: AssetData[] = [
     outOfScopeAmount: 0,
     assetWriteoffAmount: 0,
     soldOutAmount: 0,
-    grandTotal: 192459937
+    grandTotal: 192459937,
+    purchaseValue: 192459937
   },
   {
     assetClass: "Land",
@@ -92,7 +96,8 @@ export const assetData: AssetData[] = [
     outOfScopeAmount: 2203011605,
     assetWriteoffAmount: 0,
     soldOutAmount: 0,
-    grandTotal: 4913778664
+    grandTotal: 4913778664,
+    purchaseValue: 4913778664
   },
   {
     assetClass: "Moulds",
@@ -107,7 +112,8 @@ export const assetData: AssetData[] = [
     outOfScopeAmount: 6215477091,
     assetWriteoffAmount: 0,
     soldOutAmount: 0,
-    grandTotal: 6215477091
+    grandTotal: 6215477091,
+    purchaseValue: 6215477091
   },
   {
     assetClass: "OE",
@@ -122,7 +128,8 @@ export const assetData: AssetData[] = [
     outOfScopeAmount: 5900869,
     assetWriteoffAmount: 31561870,
     soldOutAmount: 0,
-    grandTotal: 315143575
+    grandTotal: 315143575,
+    purchaseValue: 315143575
   },
   {
     assetClass: "Others",
@@ -137,7 +144,8 @@ export const assetData: AssetData[] = [
     outOfScopeAmount: 0,
     assetWriteoffAmount: 0,
     soldOutAmount: 0,
-    grandTotal: 60335993
+    grandTotal: 60335993,
+    purchaseValue: 60335993
   },
   {
     assetClass: "P&M",
@@ -152,7 +160,8 @@ export const assetData: AssetData[] = [
     outOfScopeAmount: 330582310,
     assetWriteoffAmount: 0,
     soldOutAmount: 8340261,
-    grandTotal: 4147720800
+    grandTotal: 4147720800,
+    purchaseValue: 4147720800
   },
   {
     assetClass: "Vehicles",
@@ -167,7 +176,8 @@ export const assetData: AssetData[] = [
     outOfScopeAmount: 0,
     assetWriteoffAmount: 0,
     soldOutAmount: 438147686,
-    grandTotal: 3416652356
+    grandTotal: 3416652356,
+    purchaseValue: 3416652356
   }
 ];
 

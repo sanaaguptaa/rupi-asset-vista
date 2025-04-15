@@ -1,10 +1,8 @@
-
 import { useState } from "react";
 import { AssetOverview } from "./AssetOverview";
-import { AssetTable } from "./AssetTable";
 import { Sidebar } from "./Sidebar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { assetData as initialAssetData } from "@/data/assetData";
+import { assetData as initialAssetData, AssetData } from "@/data/assetData";
 import { formatRupees, formatPercentage } from "@/lib/utils";
 import { TrendingUp, TrendingDown, Building2, BriefcaseBusiness, Building, Car, PlusCircle, Edit3, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -15,11 +13,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useToast } from "@/components/ui/use-toast";
 
 export function Dashboard() {
-  const [assetData, setAssetData] = useState(initialAssetData);
+  const [assetData, setAssetData] = useState<AssetData[]>(initialAssetData);
   const [searchQuery, setSearchQuery] = useState("");
   const [addAssetOpen, setAddAssetOpen] = useState(false);
   const [editAssetOpen, setEditAssetOpen] = useState(false);
-  const [selectedAsset, setSelectedAsset] = useState<any>(null);
+  const [selectedAsset, setSelectedAsset] = useState<AssetData | null>(null);
   const { toast } = useToast();
   
   // Form state for new asset
@@ -69,12 +67,23 @@ export function Dashboard() {
     // Generate a unique asset ID
     const assetId = `AST${Math.floor(100000 + Math.random() * 900000)}`;
     
-    // Create new asset with auto-filled fields
-    const asset = {
+    // Create new asset with auto-filled fields and all required fields for AssetData
+    const asset: AssetData = {
       ...newAsset,
       assetId,
+      assetClass: newAsset.assetType, // Set assetClass based on assetType
+      outOfScopeAmount: 0, // Initialize with default values
+      assetWriteoffAmount: 0,
+      soldOutAmount: 0,
       verifiedAmount: newAsset.verifiedAmount || newAsset.grandTotal * 0.9, // Default to 90% of grand total if not specified
       grandTotal: newAsset.grandTotal || newAsset.purchaseValue, // Default to purchase value if not specified
+      assetName: newAsset.assetName,
+      assetType: newAsset.assetType,
+      department: newAsset.department,
+      purchaseDate: newAsset.purchaseDate,
+      location: newAsset.location,
+      purchaseValue: newAsset.purchaseValue,
+      status: newAsset.status
     };
     
     // Add new asset to the list
@@ -102,13 +111,15 @@ export function Dashboard() {
   };
   
   // Handle edit asset
-  const handleEditAsset = (asset: any) => {
+  const handleEditAsset = (asset: AssetData) => {
     setSelectedAsset(asset);
     setEditAssetOpen(true);
   };
   
   // Handle update asset
   const handleUpdateAsset = () => {
+    if (!selectedAsset) return;
+    
     // Update asset in the list
     const updatedAssets = assetData.map(asset => 
       asset.assetId === selectedAsset.assetId ? selectedAsset : asset
@@ -126,6 +137,8 @@ export function Dashboard() {
   
   // Handle input change for editing asset
   const handleEditAssetChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!selectedAsset) return;
+    
     const { name, value } = e.target;
     setSelectedAsset({
       ...selectedAsset,
@@ -137,19 +150,25 @@ export function Dashboard() {
   
   // Handle select change for editing asset
   const handleEditSelectChange = (name: string, value: string) => {
+    if (!selectedAsset) return;
+    
     setSelectedAsset({
       ...selectedAsset,
       [name]: value
     });
   };
   
-  // Filter assets based on search query
-  const filteredAssets = assetData.filter(asset => 
-    asset.assetName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    asset.assetId.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    asset.assetType.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    asset.department.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  // Filter assets based on search query - Add null checks to prevent toLowerCase() on undefined
+  const filteredAssets = assetData.filter(asset => {
+    if (!searchQuery) return true;
+    
+    return (
+      (asset.assetName && asset.assetName.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      (asset.assetId && asset.assetId.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      (asset.assetType && asset.assetType.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      (asset.department && asset.department.toLowerCase().includes(searchQuery.toLowerCase()))
+    );
+  });
 
   return (
     <div className="flex h-screen">

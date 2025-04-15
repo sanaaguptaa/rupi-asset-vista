@@ -1,12 +1,16 @@
-
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { 
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
   Cell, PieChart, Pie, Sector
 } from 'recharts';
-import { assetData } from "@/data/assetData";
+import { AssetData } from "@/data/assetData";
 import { formatRupees } from "@/lib/utils";
 import { useState } from "react";
+
+// Define props interface for AssetOverview
+interface AssetOverviewProps {
+  assetData: AssetData[];
+}
 
 // Custom active shape for PieChart
 const renderActiveShape = (props: any) => {
@@ -58,7 +62,7 @@ const renderActiveShape = (props: any) => {
   );
 };
 
-export function AssetOverview() {
+export function AssetOverview({ assetData }: AssetOverviewProps) {
   const [activeIndex, setActiveIndex] = useState(0);
 
   // Calculate total values
