@@ -6,12 +6,28 @@ export interface AssetData {
   assetWriteoffAmount: number;
   soldOutAmount: number;
   grandTotal: number;
+  // Add the missing properties that are being used in our components
+  assetName?: string;
+  assetId?: string;
+  assetType?: string;
+  department?: string;
+  purchaseDate?: string;
+  location?: string;
+  purchaseValue?: number;
+  status?: string;
 }
 
-// Based on the data in the provided image
+// Modify the existing asset data to include the additional required fields
 export const assetData: AssetData[] = [
   {
     assetClass: "Building",
+    assetName: "Headquarters Building",
+    assetId: "AST100001",
+    assetType: "Buildings",
+    department: "Corporate",
+    purchaseDate: "2015-03-15",
+    location: "Mumbai",
+    status: "Active",
     verifiedAmount: 2939536813,
     outOfScopeAmount: 2254321,
     assetWriteoffAmount: 0,
@@ -20,6 +36,13 @@ export const assetData: AssetData[] = [
   },
   {
     assetClass: "Computer",
+    assetName: "Server Infrastructure",
+    assetId: "AST100002",
+    assetType: "IT Assets",
+    department: "IT",
+    purchaseDate: "2020-06-22",
+    location: "Delhi",
+    status: "Active",
     verifiedAmount: 238815549,
     outOfScopeAmount: 0,
     assetWriteoffAmount: 0,
@@ -28,6 +51,13 @@ export const assetData: AssetData[] = [
   },
   {
     assetClass: "IT & EF",
+    assetName: "Network Equipment",
+    assetId: "AST100003",
+    assetType: "IT Assets",
+    department: "IT",
+    purchaseDate: "2019-04-10",
+    location: "Bangalore",
+    status: "Active",
     verifiedAmount: 1061052835,
     outOfScopeAmount: 843218853,
     assetWriteoffAmount: 0,
@@ -36,6 +66,13 @@ export const assetData: AssetData[] = [
   },
   {
     assetClass: "Intangible",
+    assetName: "Software Licenses",
+    assetId: "AST100004",
+    assetType: "Intangibles",
+    department: "IT",
+    purchaseDate: "2021-01-05",
+    location: "Chennai",
+    status: "Active",
     verifiedAmount: 192459937,
     outOfScopeAmount: 0,
     assetWriteoffAmount: 0,
@@ -44,6 +81,13 @@ export const assetData: AssetData[] = [
   },
   {
     assetClass: "Land",
+    assetName: "Corporate Campus",
+    assetId: "AST100005",
+    assetType: "Land",
+    department: "Real Estate",
+    purchaseDate: "2010-07-30",
+    location: "Hyderabad",
+    status: "Active",
     verifiedAmount: 2710767059,
     outOfScopeAmount: 2203011605,
     assetWriteoffAmount: 0,
@@ -52,6 +96,13 @@ export const assetData: AssetData[] = [
   },
   {
     assetClass: "Moulds",
+    assetName: "Production Moulds",
+    assetId: "AST100006",
+    assetType: "Plant & Machinery",
+    department: "Manufacturing",
+    purchaseDate: "2018-09-14",
+    location: "Pune",
+    status: "Under Maintenance",
     verifiedAmount: 0,
     outOfScopeAmount: 6215477091,
     assetWriteoffAmount: 0,
@@ -60,6 +111,13 @@ export const assetData: AssetData[] = [
   },
   {
     assetClass: "OE",
+    assetName: "Office Equipment",
+    assetId: "AST100007",
+    assetType: "IT Assets",
+    department: "Facilities",
+    purchaseDate: "2022-02-18",
+    location: "Kolkata",
+    status: "Active",
     verifiedAmount: 2245719,
     outOfScopeAmount: 5900869,
     assetWriteoffAmount: 31561870,
@@ -68,6 +126,13 @@ export const assetData: AssetData[] = [
   },
   {
     assetClass: "Others",
+    assetName: "Miscellaneous Assets",
+    assetId: "AST100008",
+    assetType: "Inventory",
+    department: "Logistics",
+    purchaseDate: "2021-11-30",
+    location: "Jaipur",
+    status: "Active",
     verifiedAmount: 60335993,
     outOfScopeAmount: 0,
     assetWriteoffAmount: 0,
@@ -76,6 +141,13 @@ export const assetData: AssetData[] = [
   },
   {
     assetClass: "P&M",
+    assetName: "Manufacturing Equipment",
+    assetId: "AST100009",
+    assetType: "Plant & Machinery",
+    department: "Manufacturing",
+    purchaseDate: "2017-05-22",
+    location: "Ahmedabad",
+    status: "Active",
     verifiedAmount: 3733243329,
     outOfScopeAmount: 330582310,
     assetWriteoffAmount: 0,
@@ -84,6 +156,13 @@ export const assetData: AssetData[] = [
   },
   {
     assetClass: "Vehicles",
+    assetName: "Fleet Vehicles",
+    assetId: "AST100010",
+    assetType: "Vehicles",
+    department: "Transportation",
+    purchaseDate: "2019-10-08",
+    location: "Lucknow",
+    status: "Active",
     verifiedAmount: 2923456470,
     outOfScopeAmount: 0,
     assetWriteoffAmount: 0,

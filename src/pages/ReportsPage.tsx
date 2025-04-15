@@ -26,6 +26,8 @@ export function ReportsPage() {
   
   // Prepare data for charts
   const assetTypeData = assetData.reduce((acc, asset) => {
+    if (!asset.assetType) return acc;
+    
     const typeIndex = acc.findIndex(item => item.name === asset.assetType);
     if (typeIndex !== -1) {
       acc[typeIndex].value += 1;
@@ -36,6 +38,8 @@ export function ReportsPage() {
   }, [] as { name: string; value: number }[]);
   
   const statusData = assetData.reduce((acc, asset) => {
+    if (!asset.status) return acc;
+    
     const statusIndex = acc.findIndex(item => item.name === asset.status);
     if (statusIndex !== -1) {
       acc[statusIndex].value += 1;
@@ -46,6 +50,8 @@ export function ReportsPage() {
   }, [] as { name: string; value: number }[]);
   
   const departmentValueData = assetData.reduce((acc, asset) => {
+    if (!asset.department) return acc;
+    
     const deptIndex = acc.findIndex(item => item.name === asset.department);
     if (deptIndex !== -1) {
       acc[deptIndex].value += asset.grandTotal;
@@ -124,7 +130,7 @@ export function ReportsPage() {
                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                       ))}
                     </Pie>
-                    <Tooltip formatter={(value) => [`${value} assets`, 'Count']} />
+                    <Tooltip formatter={(value: any) => [`${value} assets`, 'Count']} />
                     <Legend />
                   </RechartsChart>
                 </ResponsiveContainer>
@@ -155,7 +161,7 @@ export function ReportsPage() {
                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                       ))}
                     </Pie>
-                    <Tooltip formatter={(value) => [`${value} assets`, 'Count']} />
+                    <Tooltip formatter={(value: any) => [`${value} assets`, 'Count']} />
                     <Legend />
                   </RechartsChart>
                 </ResponsiveContainer>
@@ -179,7 +185,7 @@ export function ReportsPage() {
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="name" angle={-45} textAnchor="end" height={80} />
                   <YAxis tickFormatter={(value) => `₹${(value / 1000).toFixed(0)}K`} />
-                  <Tooltip formatter={(value) => [formatRupees(value), 'Value']} />
+                  <Tooltip formatter={(value: any) => [formatRupees(value), 'Value']} />
                   <Legend />
                   <Bar dataKey="value" name="Value" fill="#8884d8" />
                 </Rechart>
