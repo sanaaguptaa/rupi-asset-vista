@@ -9,6 +9,12 @@ import { AuthProvider } from "@/context/AuthContext";
 import { useAuth } from "@/context/AuthContext";
 import { Dashboard } from "@/components/Dashboard";
 import { AuthPage } from "@/components/AuthPage";
+import NotFound from "@/pages/NotFound";
+import { AssetClassPage } from "@/pages/AssetClassPage";
+import { ReportsPage } from "@/pages/ReportsPage";
+import { AuditLogsPage } from "@/pages/AuditLogsPage";
+import { UsersPage } from "@/pages/UsersPage";
+import { SettingsPage } from "@/pages/SettingsPage";
 
 const queryClient = new QueryClient();
 
@@ -23,7 +29,26 @@ function AppContent() {
     );
   }
 
-  return user ? <Dashboard /> : <AuthPage />;
+  if (!user) {
+    return <AuthPage />;
+  }
+
+  return (
+    <Routes>
+      <Route path="/" element={<Dashboard />} />
+      <Route path="/reports" element={<ReportsPage />} />
+      <Route path="/audit-logs" element={<AuditLogsPage />} />
+      <Route path="/buildings" element={<AssetClassPage assetType="Buildings" />} />
+      <Route path="/it-assets" element={<AssetClassPage assetType="IT Assets" />} />
+      <Route path="/intangibles" element={<AssetClassPage assetType="Intangibles" />} />
+      <Route path="/land" element={<AssetClassPage assetType="Land" />} />
+      <Route path="/inventory" element={<AssetClassPage assetType="Inventory" />} />
+      <Route path="/plant-machinery" element={<AssetClassPage assetType="Plant & Machinery" />} />
+      <Route path="/users" element={<UsersPage />} />
+      <Route path="/settings" element={<SettingsPage />} />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
+  );
 }
 
 const App = () => (
@@ -34,10 +59,7 @@ const App = () => (
           <Toaster />
           <Sonner />
           <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<AppContent />} />
-              <Route path="*" element={<AppContent />} />
-            </Routes>
+            <AppContent />
           </BrowserRouter>
         </TooltipProvider>
       </AuthProvider>

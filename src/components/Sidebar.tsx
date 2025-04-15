@@ -18,52 +18,66 @@ import {
   ChevronRight,
   BadgeIndianRupee,
   Users,
-  FileText
+  FileText,
+  PlusCircle,
+  Edit3
 } from "lucide-react";
 import { ThemeSwitcher } from "./ThemeSwitcher";
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export function Sidebar() {
   const { logout } = useAuth();
   const [collapsed, setCollapsed] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleNavigation = (path: string) => {
+    navigate(path);
+  };
 
   const NavItem = ({ 
     icon: Icon, 
     label, 
-    active = false,
+    path,
     badge,
   }: { 
     icon: React.ElementType; 
     label: string; 
-    active?: boolean;
+    path: string;
     badge?: string;
-  }) => (
-    <Button
-      variant="ghost"
-      className={cn(
-        "w-full justify-start mb-1 relative group",
-        active ? "bg-primary/10 text-primary hover:bg-primary/20" : "",
-        collapsed ? "px-2" : ""
-      )}
-    >
-      <Icon className={cn("h-5 w-5", collapsed ? "" : "mr-2")} />
-      {!collapsed && <span>{label}</span>}
-      {badge && !collapsed && (
-        <span className="ml-auto bg-primary/20 text-primary text-xs px-2 py-0.5 rounded-full">
-          {badge}
-        </span>
-      )}
-      {collapsed && badge && (
-        <span className="absolute -right-1 -top-1 bg-primary text-primary-foreground text-xs w-4 h-4 flex items-center justify-center rounded-full">
-          {badge}
-        </span>
-      )}
-      {collapsed && (
-        <span className="sr-only">{label}</span>
-      )}
-    </Button>
-  );
+  }) => {
+    const isActive = location.pathname === path;
+    
+    return (
+      <Button
+        variant="ghost"
+        className={cn(
+          "w-full justify-start mb-1 relative group",
+          isActive ? "bg-primary/10 text-primary hover:bg-primary/20" : "",
+          collapsed ? "px-2" : ""
+        )}
+        onClick={() => handleNavigation(path)}
+      >
+        <Icon className={cn("h-5 w-5", collapsed ? "" : "mr-2")} />
+        {!collapsed && <span>{label}</span>}
+        {badge && !collapsed && (
+          <span className="ml-auto bg-primary/20 text-primary text-xs px-2 py-0.5 rounded-full">
+            {badge}
+          </span>
+        )}
+        {collapsed && badge && (
+          <span className="absolute -right-1 -top-1 bg-primary text-primary-foreground text-xs w-4 h-4 flex items-center justify-center rounded-full">
+            {badge}
+          </span>
+        )}
+        {collapsed && (
+          <span className="sr-only">{label}</span>
+        )}
+      </Button>
+    );
+  };
 
   return (
     <div
@@ -104,7 +118,7 @@ export function Sidebar() {
             </Avatar>
             <div className="space-y-1">
               <p className="text-sm font-medium leading-none">John Doe</p>
-              <p className="text-xs text-muted-foreground">Asset Manager</p>
+              <p className="text-xs text-muted-foreground">Sana</p>
             </div>
           </div>
         </div>
@@ -113,25 +127,25 @@ export function Sidebar() {
       <div className="flex-1 p-4 overflow-y-auto space-y-2">
         <div className="mb-6">
           {!collapsed && <p className="text-xs uppercase text-muted-foreground mb-2 pl-2">Overview</p>}
-          <NavItem icon={LayoutDashboard} label="Dashboard" active badge="3" />
-          <NavItem icon={FileBarChart} label="Reports" />
-          <NavItem icon={FileText} label="Audit Logs" />
+          <NavItem icon={LayoutDashboard} label="Dashboard" path="/" badge="3" />
+          <NavItem icon={FileBarChart} label="Reports" path="/reports" />
+          <NavItem icon={FileText} label="Audit Logs" path="/audit-logs" />
         </div>
 
         <div className="mb-6">
           {!collapsed && <p className="text-xs uppercase text-muted-foreground mb-2 pl-2">Asset Classes</p>}
-          <NavItem icon={Building2} label="Buildings" />
-          <NavItem icon={Computer} label="IT Assets" />
-          <NavItem icon={BookOpen} label="Intangibles" />
-          <NavItem icon={Map} label="Land" />
-          <NavItem icon={Package} label="Inventory" />
-          <NavItem icon={Building} label="Plant & Machinery" />
+          <NavItem icon={Building2} label="Buildings" path="/buildings" />
+          <NavItem icon={Computer} label="IT Assets" path="/it-assets" />
+          <NavItem icon={BookOpen} label="Intangibles" path="/intangibles" />
+          <NavItem icon={Map} label="Land" path="/land" />
+          <NavItem icon={Package} label="Inventory" path="/inventory" />
+          <NavItem icon={Building} label="Plant & Machinery" path="/plant-machinery" />
         </div>
 
         <div className="mb-6">
           {!collapsed && <p className="text-xs uppercase text-muted-foreground mb-2 pl-2">Administration</p>}
-          <NavItem icon={Users} label="Users" />
-          <NavItem icon={Settings} label="Settings" />
+          <NavItem icon={Users} label="Users" path="/users" />
+          <NavItem icon={Settings} label="Settings" path="/settings" />
         </div>
       </div>
 
