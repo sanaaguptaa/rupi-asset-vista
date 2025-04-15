@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,6 +62,19 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				// Asset management specific colors
+				asset: {
+					building: '#4C51BF',
+					computer: '#3182CE',
+					it: '#38B2AC',
+					intangible: '#9F7AEA',
+					land: '#48BB78',
+					moulds: '#D69E2E',
+					oe: '#ED8936',
+					others: '#A0AEC0',
+					pnm: '#DD6B20',
+					vehicles: '#E53E3E'
 				}
 			},
 			borderRadius: {
@@ -84,11 +98,21 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				fadeIn: {
+					from: { opacity: '0' },
+					to: { opacity: '1' }
+				},
+				slideIn: {
+					from: { transform: 'translateX(-100%)' },
+					to: { transform: 'translateX(0)' }
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'fade-in': 'fadeIn 0.5s ease-out forwards',
+				'slide-in': 'slideIn 0.5s ease-out forwards'
 			}
 		}
 	},
