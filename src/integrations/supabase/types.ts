@@ -9,7 +9,66 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      assets: {
+        Row: {
+          asset_class: string
+          asset_id: string
+          asset_name: string
+          asset_type: string
+          asset_writeoff_amount: number
+          created_at: string
+          department: string
+          grand_total: number
+          id: string
+          location: string
+          out_of_scope_amount: number
+          purchase_date: string
+          purchase_value: number
+          sold_out_amount: number
+          status: string
+          updated_at: string
+          verified_amount: number
+        }
+        Insert: {
+          asset_class: string
+          asset_id: string
+          asset_name: string
+          asset_type: string
+          asset_writeoff_amount?: number
+          created_at?: string
+          department: string
+          grand_total: number
+          id?: string
+          location: string
+          out_of_scope_amount?: number
+          purchase_date: string
+          purchase_value: number
+          sold_out_amount?: number
+          status: string
+          updated_at?: string
+          verified_amount: number
+        }
+        Update: {
+          asset_class?: string
+          asset_id?: string
+          asset_name?: string
+          asset_type?: string
+          asset_writeoff_amount?: number
+          created_at?: string
+          department?: string
+          grand_total?: number
+          id?: string
+          location?: string
+          out_of_scope_amount?: number
+          purchase_date?: string
+          purchase_value?: number
+          sold_out_amount?: number
+          status?: string
+          updated_at?: string
+          verified_amount?: number
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
